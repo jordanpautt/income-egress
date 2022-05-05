@@ -1,3 +1,11 @@
+import { UserI } from './user.interface';
 export class User {
-  constructor(public uid: string | undefined, public name: string, public email: string) {}
+  static fromFireBase({ name, uid, email }: UserI) {
+    return new User(uid, name, email);
+  }
+  constructor(
+    public uid: string | undefined,
+    public name: string,
+    public email: string
+  ) {}
 }

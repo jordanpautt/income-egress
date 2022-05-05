@@ -17,6 +17,9 @@ import { RegisterComponent } from './auth/register/register.component';
 import { DetalleComponent } from './ingreso-egreso/detalle/detalle.component';
 import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
 import { EstadisticaComponent } from './ingreso-egreso/estadistica/estadistica.component';
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './app.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,11 @@ import { EstadisticaComponent } from './ingreso-egreso/estadistica/estadistica.c
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    StoreModule.forRoot(appReducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
