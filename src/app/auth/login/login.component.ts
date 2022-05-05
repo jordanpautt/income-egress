@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -31,12 +32,32 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+
+    this.loanding();
+
     const { email, password } = this.loginForm.value;
+
     this.authService
       .loginUser(email, password)
       .then((credentials) => {
         this.router.navigate(['/']);
+        Swal.close();
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${error.message}`,
+        });
+      });
+  }
+
+  loanding(): void {
+    Swal.fire({
+      title: 'Espere porfavor.',
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
   }
 }
