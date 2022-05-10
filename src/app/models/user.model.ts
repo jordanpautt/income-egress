@@ -1,4 +1,4 @@
-import { UserI } from './user.interface';
+import { UserI } from '../interfaces/user.interface';
 export class User {
   static fromFireBase({ name, uid, email }: UserI) {
     return new User(uid, name, email);

@@ -20,6 +20,7 @@ import { EstadisticaComponent } from './ingreso-egreso/estadistica/estadistica.c
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './app.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { OrderIncomeEgressPipe } from './pipes/order-income-egress.pipe';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
+    OrderIncomeEgressPipe,
   ],
   imports: [
     BrowserModule,

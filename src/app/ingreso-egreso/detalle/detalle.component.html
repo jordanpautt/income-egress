@@ -1,31 +1,35 @@
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Detalle de ingreso egreso</h4>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Detalle de ingreso egreso</h4>
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Descripción</th>
-                            <th>Monto</th>
-                            <th>Tipo</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+        <table class="table">
+          <thead>
+            <tr>
+              <th *ngFor="let colTitle of colData">{{colTitle.text}}</th>
+              <th></th>
+            </tr>
+          </thead>
 
-                    <tbody>
-                        <tr>
-                            <td>Descripción</td>
-                            <td>Monto</td>
-                            <td>Tipo</td>
-                            <td>acciones</td>
-                        </tr>
-                    </tbody>
+          <tbody>
+            <tr *ngFor="let incomeEgressData of incomeEgress | orderIncomeEgress">
+              <td *ngFor="let colType of colData">
+                <p [ngClass]="{'type-income': incomeEgressData[colType.type] === 'ingreso',
+									 'type-egress' :incomeEgressData[colType.type] === 'egreso'}">
+                  {{incomeEgressData[colType.type]}}
+                </p>
+              </td>
+              <td>
+                <button type="button" class="delete-button" (click)="deleteIncomeEgress(incomeEgressData.uid)">
+                  <i class="fa fa-minus-square" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
 
-                </table>
-
-            </div>
-        </div>
+        </table>
+      </div>
     </div>
+  </div>
 </div>

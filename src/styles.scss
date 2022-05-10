@@ -1,3 +1,30 @@
-.cursor{
-    cursor: pointer;
+.cursor {
+  cursor: pointer;
+}
+
+.type-income {
+  color: rgb(12, 141, 12);
+  background-color: rgb(168, 236, 168);
+  border-radius: 10%;
+  width: 47px;
+}
+
+.type-egress {
+  color: rgb(21, 21, 219);
+  background-color: rgb(142, 142, 240);
+  border-radius: 10%;
+  width: 47px;
+}
+
+.delete-button {
+  background-color: rgb(224, 75, 75);
+  color: white;
+  border: none;
+  border-radius: 10%;
+  padding: 8%;
+}
+
+.delete-button:hover {
+  background-color: rgb(243, 179, 179);
+  color: rgb(224, 75, 75);
 }

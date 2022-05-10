@@ -1,18 +1,25 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Store } from '@ngrx/store';
-import * as userActions from '../auth/auth.actions';
-import { map, Observable, Observer, Subscription } from 'rxjs';
 import { AppState } from '../app.reducer';
+import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
-import { UserI } from '../models/user.interface';
+import * as userActions from '../auth/auth.actions';
+import { UserI } from '../interfaces/user.interface';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { map, Observable, Observer, Subscription } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import * as actionIncomeEgress from '../ingreso-egreso/ingreso-egreso.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private _user: User;
   userSubscription$: Subscription;
+
+  get user(): User {
+    return { ...this._user };
+  }
+
   constructor(
     private auth: AngularFireAuth,
     private firestore: AngularFirestore,
@@ -27,12 +34,16 @@ export class AuthService {
           .valueChanges()
           .subscribe((partialFirestoreUser: Partial<Observer<UserI>>) => {
             const firestoreUser: UserI = partialFirestoreUser as UserI;
+
             const user = User.fromFireBase(firestoreUser);
+            this._user = user;
             this.store.dispatch(userActions.setUser({ user }));
           });
       } else {
+        this._user = null;
         this.userSubscription$?.unsubscribe();
         this.store.dispatch(userActions.unSetUser());
+        this.store.dispatch(actionIncomeEgress.unSettItems());
       }
     });
   }

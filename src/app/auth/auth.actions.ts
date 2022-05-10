@@ -7,3 +7,5 @@ export const setUser = createAction(
 );
 
 export const unSetUser = createAction('[Auth Component] unSetUser');
+
+export const logout = createAction('[Auth Component] logout');
