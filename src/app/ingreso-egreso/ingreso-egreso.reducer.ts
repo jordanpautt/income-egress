@@ -1,9 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
+import { AppState } from '../app.reducer';
 import { IncomeEgress } from '../models/income-egress.model';
 import { setItems, unSettItems } from './ingreso-egreso.actions';
 
 export interface State {
   items: IncomeEgress[];
+}
+
+export interface AppStateWithIncome extends AppState {
+  incomeEgress: State;
 }
 
 export const initialState: State = {

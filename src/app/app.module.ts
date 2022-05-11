@@ -1,49 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-
-import { environment } from '../environments/environment';
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
-import { LoginComponent } from './auth/login/login.component';
-import { FooterComponent } from './shared/footer/footer.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { DetalleComponent } from './ingreso-egreso/detalle/detalle.component';
-import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
-import { EstadisticaComponent } from './ingreso-egreso/estadistica/estadistica.component';
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './app.reducer';
+import { AppComponent } from './app.component';
+import { AuthModule } from './auth/auth.module';
+import { AppRoutingModule } from './app-routing.module';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../environments/environment';
+import { BrowserModule } from '@angular/platform-browser';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { OrderIncomeEgressPipe } from './pipes/order-income-egress.pipe';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    DashboardComponent,
-    IngresoEgresoComponent,
-    EstadisticaComponent,
-    DetalleComponent,
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent,
-    OrderIncomeEgressPipe,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
+    AuthModule,
     AppRoutingModule,
-    ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
     StoreModule.forRoot(appReducers),
+    AngularFireModule.initializeApp(environment.firebase),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

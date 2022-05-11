@@ -15,10 +15,11 @@
           <tbody>
             <tr *ngFor="let incomeEgressData of incomeEgress | orderIncomeEgress">
               <td *ngFor="let colType of colData">
-                <p [ngClass]="{'type-income': incomeEgressData[colType.type] === 'ingreso',
+                <div [ngClass]="{'type-income': incomeEgressData[colType.type] === 'ingreso',
 									 'type-egress' :incomeEgressData[colType.type] === 'egreso'}">
-                  {{incomeEgressData[colType.type]}}
-                </p>
+                  <p *ngIf="colType.type === 'amount'"> {{incomeEgressData[colType.type] | currency}}</p>
+                  <p *ngIf="colType.type !== 'amount'"> {{incomeEgressData[colType.type]}}</p>
+                </div>
               </td>
               <td>
                 <button type="button" class="delete-button" (click)="deleteIncomeEgress(incomeEgressData.uid)">

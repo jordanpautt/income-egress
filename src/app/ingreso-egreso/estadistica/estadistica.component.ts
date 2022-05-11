@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter, Subscription } from 'rxjs';
-import { AppState } from 'src/app/app.reducer';
+import { ChartData, ChartEvent, ChartType } from 'chart.js';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AppStateWithIncome } from '../ingreso-egreso.reducer';
 import { IncomeEgress } from 'src/app/models/income-egress.model';
 
 @Component({
@@ -10,14 +11,21 @@ import { IncomeEgress } from 'src/app/models/income-egress.model';
   styles: [],
 })
 export class EstadisticaComponent implements OnInit, OnDestroy {
-  fullIncome: number = 0;
-  fullEgress: number = 0;
+  fullIncome = 0;
+  fullEgress = 0;
 
-  countIncome: number = 0;
-  countEgress: number = 0;
+  countIncome = 0;
+  countEgress = 0;
   incomeEgressSubcription$: Subscription;
 
-  constructor(private store: Store<AppState>) {}
+  public doughnutChartLabels: string[] = ['Ingresos', 'Egresos'];
+  public doughnutChartData: ChartData<'doughnut'> = {
+    labels: this.doughnutChartLabels,
+    datasets: [],
+  };
+  public doughnutChartType: ChartType = 'doughnut';
+
+  constructor(private store: Store<AppStateWithIncome>) {}
 
   ngOnInit(): void {
     this.incomeEgressSubcription$ = this.store
@@ -31,6 +39,11 @@ export class EstadisticaComponent implements OnInit, OnDestroy {
   }
 
   generateStatistics(items: Array<IncomeEgress>) {
+    this.fullIncome = 0;
+    this.fullEgress = 0;
+    this.countIncome = 0;
+    this.countEgress = 0;
+
     items.forEach(({ type, amount }) => {
       if (type === 'ingreso') {
         this.fullIncome += Number(amount);
@@ -39,6 +52,10 @@ export class EstadisticaComponent implements OnInit, OnDestroy {
         this.fullEgress += +amount;
         this.countEgress += 1;
       }
+    });
+
+    this.doughnutChartData.datasets.push({
+      data: [this.fullIncome, this.fullEgress],
     });
   }
 }

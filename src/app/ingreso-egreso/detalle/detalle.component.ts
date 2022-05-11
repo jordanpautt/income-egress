@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter, Subscription } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
-import { IncomeEgressI } from 'src/app/interfaces/incomeEgress.interface';
 import { IncomeEgress } from 'src/app/models/income-egress.model';
 import { IncomeEgressService } from 'src/app/services/income-egress.service';
 import Swal from 'sweetalert2';
+import { AppStateWithIncome } from '../ingreso-egreso.reducer';
 
 @Component({
   selector: 'app-detalle',
@@ -31,7 +31,7 @@ export class DetalleComponent implements OnInit, OnDestroy {
   ];
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<AppStateWithIncome>,
     private incomeEgressService: IncomeEgressService
   ) {}
 
@@ -45,7 +45,7 @@ export class DetalleComponent implements OnInit, OnDestroy {
       });
   }
 
-  deleteIncomeEgress(uid:string) {
+  deleteIncomeEgress(uid: string) {
     this.incomeEgressService
       .deleteIncomeEgress(uid)
       .then(() => {

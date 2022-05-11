@@ -5,11 +5,11 @@ import * as incomeEgress from './ingreso-egreso/ingreso-egreso.reducer';
 export interface AppState {
   ui: ui.State;
   user: auth.State;
-  incomeEgress: incomeEgress.State;
+  // incomeEgress: incomeEgress.State;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
   ui: ui.uiReducer,
   user: auth.authReducer,
-  incomeEgress: incomeEgress.incomeEgressReducer,
+  // incomeEgress: incomeEgress.incomeEgressReducer,
 };
